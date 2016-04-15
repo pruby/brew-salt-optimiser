@@ -142,9 +142,6 @@ class BrewSaltOptimiser
     /* Optimise */
     $result = SimplexOptimiser::simplex_minimise($goal, $matrix, $row_values);
   
-    //echo "Variable values:\n";
-    //var_dump($result['variable_values']);
-  
     $salt_additions = array();
     $i = -1;
     foreach ($available_salts as $salt => $ion_content)
