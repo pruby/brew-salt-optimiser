@@ -48,65 +48,39 @@ class BrewSaltOptimiser
         {
           $amount = $ion_content[$ion];
         }
-        $excess_constraint[] = 0 - $amount;
+        $excess_constraint[] = $amount;
         $lack_constraint[] = $amount;
       }
     
-      /* Columns for the excess variables */
+      /* Generate the pattern of columns for the excess and lack variables */
       foreach($ions as $ei)
       {
         if ($ion === $ei)
         {
+          /* Excess and lack variables */
           $excess_constraint[] = 1;
-        }
-        else
-        {
           $excess_constraint[] = 0;
-        }
-        $lack_constraint[] = 0;
-      }
-    
-      /* Columns for the lack variables */
-      foreach($ions as $ui)
-      {
-        if ($ion === $ei)
-        {
+          $lack_constraint[] = 0;
+          $lack_constraint[] = 1;
+          
+          /* Slack on those variables */
+          $excess_constraint[] = -1;
+          $excess_constraint[] = 0;
+          $lack_constraint[] = 0;
           $lack_constraint[] = 1;
         }
         else
         {
-          $lack_constraint[] = 0;
-        }
-        $excess_constraint[] = 0;
-      }
-    
-      /* Slack on the excess */
-      foreach($ions as $ei)
-      {
-        if ($ion === $ei)
-        {
-          $excess_constraint[] = 1;
-        }
-        else
-        {
           $excess_constraint[] = 0;
-        }
-        $lack_constraint[] = 0;
-      }
-    
-      /* Slack on the lack */
-      foreach($ions as $ui)
-      {
-        /* Identity matrix at the start */
-        if ($ion === $ei)
-        {
-          $lack_constraint[] = 1;
-        }
-        else
-        {
+          $lack_constraint[] = 0;
+          $excess_constraint[] = 0;
+          $lack_constraint[] = 0;
+          
+          $excess_constraint[] = 0;
+          $lack_constraint[] = 0;
+          $excess_constraint[] = 0;
           $lack_constraint[] = 0;
         }
-        $excess_constraint[] = 0;
       }
     
       $matrix[] = $excess_constraint;
@@ -125,16 +99,13 @@ class BrewSaltOptimiser
     {
       $initial_difference += abs($target_values[$ion] - $initial_values[$ion]);
 
-      $row_values[] = $initial_values[$ion] - $target_values[$ion];
-      $goal[] = 1;
-    
       $row_values[] = $target_values[$ion] - $initial_values[$ion];
       $goal[] = 1;
-    }
-    
-    /* Zero slack variable impact on minimisation goal */
-    foreach ($ions as $ion)
-    {
+
+      $row_values[] = $target_values[$ion] - $initial_values[$ion];
+      $goal[] = 1;
+      
+      // Slack variables have no impact on goal
       $goal[] = 0;
       $goal[] = 0;
     }
