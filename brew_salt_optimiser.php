@@ -57,7 +57,7 @@ class BrewSaltOptimiser
       {
         if ($ion === $ei)
         {
-          /* Excess and surplus variable on excess. Zero columns where Lack goes. */
+          /* Excess variable and surplus variable on the excess. */
           $excess_constraint[] = 1;
           $excess_constraint[] = -1;
           $excess_constraint[] = 0;
