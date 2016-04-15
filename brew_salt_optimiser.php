@@ -57,29 +57,26 @@ class BrewSaltOptimiser
       {
         if ($ion === $ei)
         {
-          /* Excess and lack variables */
+          /* Excess and surplus variable on excess. Zero columns where Lack goes. */
           $excess_constraint[] = 1;
-          $excess_constraint[] = 0;
-          $lack_constraint[] = 0;
-          $lack_constraint[] = 1;
-          
-          /* Slack on those variables */
           $excess_constraint[] = -1;
           $excess_constraint[] = 0;
+          $excess_constraint[] = 0;
+          
+          /* Lack variable and slack variable on the lack. */
           $lack_constraint[] = 0;
+          $lack_constraint[] = 0;
+          $lack_constraint[] = 1;
           $lack_constraint[] = 1;
         }
         else
         {
-          $excess_constraint[] = 0;
-          $lack_constraint[] = 0;
-          $excess_constraint[] = 0;
-          $lack_constraint[] = 0;
-          
-          $excess_constraint[] = 0;
-          $lack_constraint[] = 0;
-          $excess_constraint[] = 0;
-          $lack_constraint[] = 0;
+          /* Excess/lack on a different ion - zero columns in our rows */
+          for ($j = 0; $j < 4; $j++)
+          {
+            $excess_constraint[] = 0;
+            $lack_constraint[] = 0;
+          }
         }
       }
     
@@ -101,13 +98,11 @@ class BrewSaltOptimiser
 
       $row_values[] = $target_values[$ion] - $initial_values[$ion];
       $goal[] = 1;
+      $goal[] = 0; // Surplus
 
       $row_values[] = $target_values[$ion] - $initial_values[$ion];
       $goal[] = 1;
-      
-      // Slack variables have no impact on goal
-      $goal[] = 0;
-      $goal[] = 0;
+      $goal[] = 0; // Slack
     }
   
     /* Optimise */
