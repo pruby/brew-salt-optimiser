@@ -18,12 +18,13 @@ class BrewSaltOptimiser
     Impact in mg/L of 1g of salt in 1L of water
   */
   const DEFAULT_SALTS = array(
-    "Gypsum" => array("Ca" => 234, "SO4" => 558),
-    "Epsom Salt" => array("Mg" => 99, "SO4" => 390),
-    "Table Salt" => array("Na" => 393, "Cl" => 606),
-    "Calcium Chloride" => array("Ca" => 273, "Cl" => 483),
-    "Magnesium Chloride" => array("Mg" => 120, "Cl" => 348),
-    "Chalk" => array("Ca" => 201)
+    "Gypsum" => array("Ca" => 232.8, "SO4" => 557.9),
+    "Epsom Salt" => array("Mg" => 98.6, "SO4" => 389.7),
+    "Table Salt" => array("Na" => 393.4, "Cl" => 606.7),
+    "Calcium Chloride" => array("Ca" => 272.6, "Cl" => 482.3),
+    "Magnesium Chloride" => array("Mg" => 119.5, "Cl" => 348.7),
+    "Chalk" => array("Ca" => 200.2, "HCO" => 606.8),
+    "Baking Soda" => array("Na" => 273.7, "HCO" => 710.0)
   );
   
   public static function optimise_brewing_salts($initial_values, $target_values, $available_salts = BrewSaltOptimiser::DEFAULT_SALTS)
