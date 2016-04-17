@@ -4,7 +4,7 @@ Designed to work with the Brewer's Friend calculator at http://www.brewersfriend
 
 This takes a source water profile and a target water profile and generates optimal salt additions to minimise the total error across all the different ions (Calcium, Magnesium, Sodium, Chlorides, Sulphates, HCO alkalinity). These are very precise, optimal measures for reducing that target. At the result given, increasing or decreasing or trading off any salts will increase the total error.
 
-An example of use is in test_brewing_salt_additions.php and calculates salts to change from Wellington water (as well as I can read the report) to Brewer's Friend's "Balanced Profile I".
+An example of use is in test_brew_salt_optimiser.php and calculates salts to change from Wellington water (as well as I can read the report) to Brewer's Friend's "Balanced Profile I".
 
 Note that:
 * This is not integrated with a user interface, and is useful for programmers only in this form.
